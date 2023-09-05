@@ -20,9 +20,18 @@ To copy a password to the clipboard select the password from the list and press 
 
 ### screenshots of the program
 
+**Entering the master password**
+
 ![image](./PasswordManager/images/masterpassword1.png)
 
+**The main window**
+
 ![image](./PasswordManager/images/masterpassword2.png)
+
+
+**Generating a secure random password**
+
+![image](./PasswordManager/images/masterpassword3.png)
 
 ## Installation
 
