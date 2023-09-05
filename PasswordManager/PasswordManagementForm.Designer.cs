@@ -46,6 +46,7 @@
             label5 = new Label();
             showbutton = new Button();
             hidebutton = new Button();
+            button2 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
@@ -221,11 +222,22 @@
             hidebutton.UseVisualStyleBackColor = false;
             hidebutton.Click += RevealEnteredButton_Click;
             // 
+            // button2
+            // 
+            button2.Location = new Point(179, 128);
+            button2.Name = "button2";
+            button2.Size = new Size(197, 23);
+            button2.TabIndex = 17;
+            button2.Text = "Password Generator";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += OpenPasswordGenerator_Click;
+            // 
             // PasswordManagementForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(731, 450);
+            Controls.Add(button2);
             Controls.Add(showbutton);
             Controls.Add(label5);
             Controls.Add(RevealButton);
@@ -271,5 +283,6 @@
         private Label label5;
         private Button showbutton;
         private Button hidebutton;
+        private Button button2;
     }
 }

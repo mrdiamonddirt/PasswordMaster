@@ -386,6 +386,13 @@ namespace PasswordManager
             }
         }
 
+        private void OpenPasswordGenerator_Click(object sender, EventArgs e)
+        {
+            // Open the PasswordGenerator
+            PasswordGenerator passwordGenerator = new PasswordGenerator();
+            passwordGenerator.ShowDialog();
+        }
+
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
