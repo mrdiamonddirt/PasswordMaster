@@ -47,7 +47,11 @@
             showbutton = new Button();
             hidebutton = new Button();
             button2 = new Button();
+            menuStrip1 = new MenuStrip();
+            fileToolStripMenuItem = new ToolStripMenuItem();
+            changeMasterPasswordToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // dataGridView
@@ -188,7 +192,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label5.Location = new Point(194, 9);
+            label5.Location = new Point(194, 29);
             label5.Name = "label5";
             label5.Size = new Size(317, 50);
             label5.TabIndex = 14;
@@ -232,6 +236,29 @@
             button2.UseVisualStyleBackColor = true;
             button2.Click += OpenPasswordGenerator_Click;
             // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(731, 24);
+            menuStrip1.TabIndex = 18;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { changeMasterPasswordToolStripMenuItem });
+            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            fileToolStripMenuItem.Size = new Size(37, 20);
+            fileToolStripMenuItem.Text = "File";
+            // 
+            // changeMasterPasswordToolStripMenuItem
+            // 
+            changeMasterPasswordToolStripMenuItem.Name = "changeMasterPasswordToolStripMenuItem";
+            changeMasterPasswordToolStripMenuItem.Size = new Size(207, 22);
+            changeMasterPasswordToolStripMenuItem.Text = "Change Master Password";
+            changeMasterPasswordToolStripMenuItem.Click += ChangeMasterPassword_Click;
+            // 
             // PasswordManagementForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -255,11 +282,15 @@
             Controls.Add(dataGridView);
             Controls.Add(hidebutton);
             Controls.Add(passwordTextBox);
+            Controls.Add(menuStrip1);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MainMenuStrip = menuStrip1;
             Name = "PasswordManagementForm";
             Text = "Password Master";
             Load += PasswordManagementForm_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -284,5 +315,8 @@
         private Button showbutton;
         private Button hidebutton;
         private Button button2;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem fileToolStripMenuItem;
+        private ToolStripMenuItem changeMasterPasswordToolStripMenuItem;
     }
 }

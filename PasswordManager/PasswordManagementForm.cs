@@ -386,6 +386,25 @@ namespace PasswordManager
             }
         }
 
+        private void ChangeMasterPassword_Click(object sender, EventArgs e)
+        {
+            // Create an instance of the ChangePasswordForm
+            ChangePasswordForm changePasswordForm = new ChangePasswordForm();
+
+            // Show the ChangePasswordForm as a modal dialog
+            DialogResult result = changePasswordForm.ShowDialog();
+
+            // Check the result to determine if the password was successfully changed
+            if (result == DialogResult.OK)
+            {
+                MessageBox.Show("Password changed successfully.");
+            }
+            else
+            {
+                MessageBox.Show("Password change canceled or failed.");
+            }
+        }
+
         private void OpenPasswordGenerator_Click(object sender, EventArgs e)
         {
             // Open the PasswordGenerator

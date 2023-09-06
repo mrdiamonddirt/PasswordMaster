@@ -11,16 +11,70 @@ namespace PasswordManager
     {
         private Label infoLabel;
         private TextBox masterPasswordTextBox;
+        private TextBox confirmMasterPasswordTextBox;
+        private Label confirmLabel;
         private Button confirmButton;
 
         private static string ConfigFileName = "config.txt";
         private static string MasterPasswordFileName = "masterpassword.txt";
+
+        private bool creatingInitialMasterPassword = false; // Flag to track if creating the initial master password
 
         public Form1()
         {
             InitializeComponent();
             InitializeComponents();
             InitializeEvents();
+
+        }
+
+        private void InitializeComponents()
+        {
+            infoLabel = new Label
+            {
+                Location = new System.Drawing.Point(10, 10),
+                AutoSize = true,
+                Text = "Welcome to the Password Manager. \r\n You need to create a master password."
+            };
+
+            masterPasswordTextBox = new TextBox
+            {
+                Location = new System.Drawing.Point(10, 40),
+                Size = new System.Drawing.Size(200, 20),
+                PasswordChar = '*',
+                Visible = false
+            };
+
+            confirmMasterPasswordTextBox = new TextBox
+            {
+                Location = new System.Drawing.Point(10, 100),
+                Size = new System.Drawing.Size(200, 20),
+                PasswordChar = '*',
+                Visible = false
+            };
+
+            confirmLabel = new Label
+            {
+                Location = new System.Drawing.Point(10, 70),
+                AutoSize = true,
+                Text = "Confirm Master Password:",
+                Visible = false
+            };
+
+            confirmButton = new Button
+            {
+                Location = new System.Drawing.Point(10,70),
+                AutoSize = true,
+                Text = "Confirm",
+                Visible = false
+            };
+
+            Controls.Add(infoLabel);
+            Controls.Add(masterPasswordTextBox);
+            Controls.Add(confirmMasterPasswordTextBox);
+            Controls.Add(confirmLabel);
+            Controls.Add(confirmButton);
+
 
             if (!File.Exists(MasterPasswordFileName))
             {
@@ -36,54 +90,29 @@ namespace PasswordManager
                         MessageBox.Show($"Error deleting password_data.csv: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+                creatingInitialMasterPassword = true; // Flag that we are creating the initial master password
             }
 
 
             if (!File.Exists(ConfigFileName))
             {
-                ShowInfo("Welcome to the Password Manager. You need to create a master password.");
+                ShowInfo("Welcome to the Password Manager. \r\nYou need to create a master password.");
                 ShowMasterPasswordInput(true);
+                confirmButton.Location = new System.Drawing.Point(10, 130);
             }
             else
             {
                 ShowInfo("Enter your master password to continue:");
                 ShowMasterPasswordInput(true);
+                this.Size = new System.Drawing.Size(300, 150);
             }
-        }
-
-        private void InitializeComponents()
-        {
-            infoLabel = new Label
-            {
-                Location = new System.Drawing.Point(10, 10),
-                AutoSize = true,
-                Text = "Welcome to the Password Manager. You need to create a master password."
-            };
-
-            masterPasswordTextBox = new TextBox
-            {
-                Location = new System.Drawing.Point(10, 40),
-                Size = new System.Drawing.Size(200, 20),
-                PasswordChar = '*',
-                Visible = false
-            };
-
-            confirmButton = new Button
-            {
-                Location = new System.Drawing.Point(10, 70),
-                Text = "Confirm",
-                Visible = false
-            };
-
-            Controls.Add(infoLabel);
-            Controls.Add(masterPasswordTextBox);
-            Controls.Add(confirmButton);
         }
 
         private void InitializeEvents()
         {
             confirmButton.Click += ConfirmButton_Click;
             masterPasswordTextBox.KeyUp += MasterPasswordTextBox_KeyUp;
+            confirmMasterPasswordTextBox.KeyUp += MasterPasswordTextBox_KeyUp;
         }
 
         private void ShowInfo(string message)
@@ -94,30 +123,43 @@ namespace PasswordManager
         private void ShowMasterPasswordInput(bool show)
         {
             masterPasswordTextBox.Visible = show;
+            if (creatingInitialMasterPassword) // Show the confirm password fields only when creating the initial master password
+            {
+                confirmMasterPasswordTextBox.Visible = show;
+                confirmLabel.Visible = show;
+
+            }
             confirmButton.Visible = show;
         }
 
         private void ConfirmButton_Click(object sender, EventArgs e)
         {
             string enteredPassword = masterPasswordTextBox.Text.Trim(); // Trim input to remove leading/trailing spaces
+            string confirmedPassword = confirmMasterPasswordTextBox.Text.Trim();
 
             if (!File.Exists(ConfigFileName))
             {
-                string masterPassword = enteredPassword;
-                if (!string.IsNullOrEmpty(masterPassword))
+                if (creatingInitialMasterPassword) // Check if creating the initial master password
                 {
-                    SaveMasterPassword(masterPassword);
-                    File.WriteAllText(ConfigFileName, "masterpasswordset");
-                    ShowInfo("Master password set successfully.");
-                    ShowMasterPasswordInput(false);
+                    if (!string.IsNullOrEmpty(enteredPassword) && enteredPassword == confirmedPassword)
+                    {
+                        SaveMasterPassword(enteredPassword);
+                        File.WriteAllText(ConfigFileName, "masterpasswordset");
+                        ShowInfo("Master password set successfully.");
+                        ShowMasterPasswordInput(false);
 
-                    // Open the PasswordManagementForm
-                    PasswordManagementForm passwordManagementForm = new PasswordManagementForm();
-                    passwordManagementForm.ShowDialog();
+                        // Open the PasswordManagementForm
+                        PasswordManagementForm passwordManagementForm = new PasswordManagementForm();
+                        passwordManagementForm.ShowDialog();
 
-                    // Close the Form1 (password input form)
-                    this.Hide();
-                    this.Close();
+                        // Close the Form1 (password input form)
+                        this.Hide();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Passwords do not match or are empty. Please enter a valid master password.");
+                    }
                 }
                 else
                 {
