@@ -50,7 +50,7 @@ to change the master password select file on the menu bar and press the "Change 
 
 ### Windows
 
-1. Download the latest release from the [releases](https://github.com/mrdiamonddirt/PasswordMaster/releases/tag/build) page.
+1. Download the latest release from the [releases](https://github.com/mrdiamonddirt/PasswordMaster/releases/) page.
 
 2. Extract the zip file.
 
