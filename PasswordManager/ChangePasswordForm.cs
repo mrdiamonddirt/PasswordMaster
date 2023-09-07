@@ -143,5 +143,10 @@ namespace PasswordManager
 
             return hashedPassword == enteredPasswordHash;
         }
+
+        private void ChangePasswordForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

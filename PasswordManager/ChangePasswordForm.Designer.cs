@@ -28,15 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChangePasswordForm));
             SuspendLayout();
             // 
             // ChangePasswordForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(392, 288);
+            ClientSize = new Size(250, 232);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ChangePasswordForm";
-            Text = "ChangePasswordForm";
+            Text = "Change Password";
+            Load += ChangePasswordForm_Load;
             ResumeLayout(false);
         }
 
