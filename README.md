@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a simple password manager that uses a master password to encrypt and decrypt passwords. It is written in C# and uses the .NET Framework 4.7.2.
+This is a simple password manager that uses a master password to encrypt and decrypt passwords. It is written in C# and uses the .NET Framework 6.0
 
 ## Requirements
 
